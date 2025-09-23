@@ -1,4 +1,4 @@
-﻿package com.example.functions.dto;
+package com.example.functions.dto;
 
 public class BodegaDTO {
     private Long id;

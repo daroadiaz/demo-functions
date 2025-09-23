@@ -1,4 +1,4 @@
-﻿package com.example.functions;
+package com.example.functions;
 
 import com.microsoft.azure.functions.*;
 import com.microsoft.azure.functions.annotation.*;

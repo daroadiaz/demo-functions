@@ -1,0 +1,155 @@
+type Query {
+    # Productos queries
+    producto(id: ID!): Producto
+    productos(
+        limit: Int
+        offset: Int
+        categoria: String
+        activo: Boolean
+    ): ProductosResponse!
+
+    # Bodegas queries
+    bodega(id: ID!): Bodega
+    bodegas(
+        limit: Int
+        offset: Int
+        minCapacity: Int
+        hasAvailableSpace: Boolean
+    ): BodegasResponse!
+
+    # Analytics queries
+    inventoryAnalytics: InventoryAnalytics!
+    warehouseCapacityAnalysis: WarehouseCapacityAnalysis!
+}
+
+type Mutation {
+    # Productos mutations
+    createProducto(input: ProductoInput!): Producto!
+    updateProducto(id: ID!, input: ProductoInput!): Producto!
+    deleteProducto(id: ID!): DeleteResponse!
+
+    # Bodegas mutations
+    createBodega(input: BodegaInput!): Bodega!
+    updateBodega(id: ID!, input: BodegaInput!): Bodega!
+    deleteBodega(id: ID!): DeleteResponse!
+
+    # Batch operations
+    batchCreateProductos(productos: [ProductoInput!]!): BatchOperationResponse!
+    transferInventory(from: ID!, to: ID!, cantidad: Int!): TransferResponse!
+}
+
+# Types
+type Producto {
+    id: ID!
+    codigo: String!
+    nombre: String!
+    descripcion: String
+    precio: Float!
+    stock: Int!
+    stockMinimo: Int!
+    categoria: String
+    activo: Boolean!
+    createdAt: String
+    updatedAt: String
+}
+
+type Bodega {
+    id: ID!
+    codigo: String!
+    nombre: String!
+    direccion: String
+    telefono: String
+    capacidadMaxima: Int!
+    espacioUtilizado: Int!
+    espacioDisponible: Int!
+    utilizacionPorcentaje: Float!
+    activo: Boolean!
+    productos: [Producto]
+}
+
+type ProductosResponse {
+    data: [Producto!]!
+    count: Int!
+    hasMore: Boolean!
+}
+
+type BodegasResponse {
+    data: [Bodega!]!
+    count: Int!
+    hasMore: Boolean!
+}
+
+type DeleteResponse {
+    success: Boolean!
+    message: String!
+    id: ID!
+}
+
+type BatchOperationResponse {
+    success: Int!
+    failed: Int!
+    total: Int!
+    errors: [String]
+}
+
+type TransferResponse {
+    success: Boolean!
+    message: String!
+    fromBodega: Bodega!
+    toBodega: Bodega!
+    quantityTransferred: Int!
+}
+
+type InventoryAnalytics {
+    totalProducts: Int!
+    totalValue: Float!
+    lowStockProducts: [Producto!]!
+    categorySummary: [CategorySummary!]!
+}
+
+type CategorySummary {
+    category: String!
+    count: Int!
+    totalValue: Float!
+    averagePrice: Float!
+}
+
+type WarehouseCapacityAnalysis {
+    totalWarehouses: Int!
+    totalCapacity: Int!
+    totalUsed: Int!
+    totalAvailable: Int!
+    averageUtilization: Float!
+    warehouses: [WarehouseAnalysis!]!
+}
+
+type WarehouseAnalysis {
+    id: ID!
+    name: String!
+    capacity: Int!
+    used: Int!
+    available: Int!
+    utilizationPercentage: Float!
+}
+
+# Input Types
+input ProductoInput {
+    codigo: String!
+    nombre: String!
+    descripcion: String
+    precio: Float!
+    stock: Int!
+    stockMinimo: Int!
+    categoria: String
+    activo: Boolean
+}
+
+input BodegaInput {
+    codigo: String!
+    nombre: String!
+    direccion: String
+    telefono: String
+    capacidadMaxima: Int!
+    espacioUtilizado: Int
+    activo: Boolean
+}

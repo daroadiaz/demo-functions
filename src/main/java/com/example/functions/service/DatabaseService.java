@@ -1,4 +1,4 @@
-﻿package com.example.functions.service;
+package com.example.functions.service;
 
 import com.example.functions.dto.ProductoDTO;
 import com.example.functions.dto.BodegaDTO;
@@ -155,5 +155,55 @@ public class DatabaseService {
             }
         }
         return bodegas;
+    }
+
+    public BodegaDTO getBodega(Long id) throws SQLException {
+        String sql = "SELECT * FROM BODEGAS WHERE ID = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    BodegaDTO bodega = new BodegaDTO();
+                    bodega.setId(rs.getLong("ID"));
+                    bodega.setCodigo(rs.getString("CODIGO"));
+                    bodega.setNombre(rs.getString("NOMBRE"));
+                    bodega.setDireccion(rs.getString("DIRECCION"));
+                    bodega.setTelefono(rs.getString("TELEFONO"));
+                    bodega.setCapacidadMaxima(rs.getInt("CAPACIDAD_MAXIMA"));
+                    bodega.setEspacioUtilizado(rs.getInt("ESPACIO_UTILIZADO"));
+                    bodega.setActivo(rs.getInt("ACTIVO") == 1);
+                    return bodega;
+                }
+            }
+        }
+        return null;
+    }
+
+    public BodegaDTO updateBodega(Long id, BodegaDTO bodega) throws SQLException {
+        String sql = "UPDATE BODEGAS SET CODIGO=?, NOMBRE=?, DIRECCION=?, TELEFONO=?, CAPACIDAD_MAXIMA=?, ESPACIO_UTILIZADO=?, ACTIVO=? WHERE ID=?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, bodega.getCodigo());
+            stmt.setString(2, bodega.getNombre());
+            stmt.setString(3, bodega.getDireccion());
+            stmt.setString(4, bodega.getTelefono());
+            stmt.setInt(5, bodega.getCapacidadMaxima());
+            stmt.setInt(6, bodega.getEspacioUtilizado());
+            stmt.setInt(7, bodega.getActivo() ? 1 : 0);
+            stmt.setLong(8, id);
+            stmt.executeUpdate();
+            bodega.setId(id);
+        }
+        return bodega;
+    }
+
+    public void deleteBodega(Long id) throws SQLException {
+        String sql = "DELETE FROM BODEGAS WHERE ID = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setLong(1, id);
+            stmt.executeUpdate();
+        }
     }
 }
