@@ -1,0 +1,16 @@
+{
+  "scriptFile" : "../demo-functions-1.0.0.jar",
+  "entryPoint" : "com.example.functions.SimpleProductoFunction.updateProducto",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "direction" : "in",
+    "name" : "req",
+    "route" : "productos/{id}",
+    "methods" : [ "PUT" ],
+    "authLevel" : "ANONYMOUS"
+  }, {
+    "type" : "http",
+    "direction" : "out",
+    "name" : "$return"
+  } ]
+}

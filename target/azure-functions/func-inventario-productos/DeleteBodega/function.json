@@ -1,0 +1,16 @@
+{
+  "scriptFile" : "../demo-functions-1.0.0.jar",
+  "entryPoint" : "com.example.functions.SimpleBodegaFunction.deleteBodega",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "direction" : "in",
+    "name" : "req",
+    "route" : "bodegas/{id}",
+    "methods" : [ "DELETE" ],
+    "authLevel" : "ANONYMOUS"
+  }, {
+    "type" : "http",
+    "direction" : "out",
+    "name" : "$return"
+  } ]
+}

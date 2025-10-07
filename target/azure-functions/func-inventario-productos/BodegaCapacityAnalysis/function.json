@@ -1,0 +1,16 @@
+{
+  "scriptFile" : "../demo-functions-1.0.0.jar",
+  "entryPoint" : "com.example.functions.rest.BodegaRestGateway.analyzeCapacity",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "direction" : "in",
+    "name" : "req",
+    "route" : "api/v1/bodegas/analysis/capacity",
+    "methods" : [ "GET" ],
+    "authLevel" : "ANONYMOUS"
+  }, {
+    "type" : "http",
+    "direction" : "out",
+    "name" : "$return"
+  } ]
+}

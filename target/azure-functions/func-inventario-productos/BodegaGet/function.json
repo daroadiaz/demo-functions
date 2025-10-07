@@ -1,0 +1,16 @@
+{
+  "scriptFile" : "../demo-functions-1.0.0.jar",
+  "entryPoint" : "com.example.functions.BodegaFunction.get",
+  "bindings" : [ {
+    "type" : "httpTrigger",
+    "direction" : "in",
+    "name" : "req",
+    "route" : "bodega/{id}",
+    "methods" : [ "GET" ],
+    "authLevel" : "ANONYMOUS"
+  }, {
+    "type" : "http",
+    "direction" : "out",
+    "name" : "$return"
+  } ]
+}

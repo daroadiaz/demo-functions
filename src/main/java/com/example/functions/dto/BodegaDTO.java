@@ -1,5 +1,7 @@
 package com.example.functions.dto;
 
+import java.time.LocalDateTime;
+
 public class BodegaDTO {
     private Long id;
     private String codigo;
@@ -9,6 +11,8 @@ public class BodegaDTO {
     private Integer capacidadMaxima;
     private Integer espacioUtilizado;
     private Boolean activo;
+    private LocalDateTime fechaCreacion;
+    private LocalDateTime fechaActualizacion;
     
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -26,4 +30,8 @@ public class BodegaDTO {
     public void setEspacioUtilizado(Integer espacioUtilizado) { this.espacioUtilizado = espacioUtilizado; }
     public Boolean getActivo() { return activo; }
     public void setActivo(Boolean activo) { this.activo = activo; }
+    public LocalDateTime getFechaCreacion() { return fechaCreacion; }
+    public void setFechaCreacion(LocalDateTime fechaCreacion) { this.fechaCreacion = fechaCreacion; }
+    public LocalDateTime getFechaActualizacion() { return fechaActualizacion; }
+    public void setFechaActualizacion(LocalDateTime fechaActualizacion) { this.fechaActualizacion = fechaActualizacion; }
 }

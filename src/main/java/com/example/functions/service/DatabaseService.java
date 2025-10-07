@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DatabaseService {
-    
-    private Connection getConnection() throws SQLException {
+
+    public Connection getConnection() throws SQLException {
         String url = System.getenv("DB_URL");
         String user = System.getenv("DB_USER");
         String password = System.getenv("DB_PASSWORD");
-        return DriverManager.getConnection(url, user, password);
+
+        Connection conn = DriverManager.getConnection(url, user, password);
+        conn.setAutoCommit(false);
+        return conn;
     }
     
     public ProductoDTO createProducto(ProductoDTO producto) throws SQLException {
